@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock App</title>
+</head>
+<body>
+
+<h2>Stock</h2>
+<table border="1">
+    <tr>
+        <th>Produit</th>
+        <th>Quantité</th>
+    </tr>
+    <tr th:each="entry : ${stock.stock}">
+        <td th:text="${entry.key}"></td>
+        <td th:text="${entry.value}"></td>
+    </tr>
+</table>
+<br>
+<form action="/stock/refresh" method="get">
+    <button type="submit">refresh</button>
+</form>
+
+<hr>
+<h2>Reaprovisionnement</h2>
+<form action="/stock/approvisionner" method="get">
+    <button type="submit">Approvisionnement</button>
+</form>
+
+</body>
+</html>

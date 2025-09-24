@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Home Page</title>
+    <style>
+        label {
+            display: block;
+            margin-top: 0.5em;
+        }
+        input, button {
+            margin-bottom: 1em;
+            display: block;
+        }
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 1em;
+        }
+        legend {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>Créé ton compte</h1>
+<form action="/store/create" method="post">
+    Email : <input  type="email" name="email">
+    Mot de passe : <input type="password" name="password">
+    Nom : <input name="nom">
+    Prenom : <input name="prenom">
+    <input type="submit">
+</form>
+
+<br>
+<hr/>
+
+<h1>Connecte toi</h1>
+<form action="/store/login" method="post">
+    Email : <input type="email" name="email">
+    Mot de passe : <input type="password" name="password">
+    <input type="submit">
+</form>
+
+</body>
+</html>

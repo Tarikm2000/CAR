@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client page</title>
+    <style>
+        /* Style de base pour la page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 8px;
+            margin-right: 10px;
+        }
+    </style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/styleClient.css">
+        <title>Client page</title>
+    </head>
+<body>
+<h1>Bonjour</h1>
+
+<a href="./home">logout</a>
+<br>
+<hr>
+<h2>Liste des commandes</h2>
+<table border="1">
+    <tr><th>Id</th><th>Nom</th><th></th></tr>
+    <tr th:each="commande : ${commandes}">
+        <td th:text="${commande.id}"/>
+        <td th:text="${commande.nom}"/>
+        <td> <a th:href="@{'/store/client/commande/' + ${commande.id}}">edit</a> </td>
+    </tr>
+</table>
+<hr>
+<h2>Créer une commande	</h2>
+<form action="/store/client/createCommand" method="post">
+    Nom : <input name="nom">
+    <input type="submit">
+</form>
+
+</body>
+</html>

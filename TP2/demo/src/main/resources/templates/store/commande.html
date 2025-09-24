@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styleCommandePage.css">
+    <title>Commande</title>
+    <style>
+        /* Style de base pour la page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="number"], input[type="submit"] {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .btn-remove {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-remove:hover {
+            background-color: #d32f2f;
+        }
+        .btn-print, .btn-add {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-print:hover, .btn-add:hover {
+            background-color: #45a049;
+        }
+        .btn-back {
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Commande : <span th:text="${commande.nom}"></span></h1>
+
+<a href="/store/client" class="btn-back">Retour</a>
+<br><hr>
+
+<section>
+    <h2>Liste des articles</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Prix Unitaire</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ligneCommande : ${articles}">
+            <td th:text="${ligneCommande.article.nomArticle}"></td>
+            <td th:text="${ligneCommande.nbArticle}"></td>
+            <td th:text="${ligneCommande.article.prixUnitaire} + ' €'"></td>
+            <td>
+                <form id="removeArticle" th:action="@{/store/client/removeArticle}" method="post">
+                    <input type="hidden" name="commandeId" th:value="${commande.id}">
+                    <input type="hidden" name="articleId" th:value="${ligneCommande.article.id}">
+                    <input type="submit" value="Supprimer" class="btn-remove">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <form id="print" th:action="@{/store/client/commande/print}" method="post">
+        <input type="hidden" name="commandeId" th:value="${commande.id}">
+        <input type="submit" value="Imprimer" class="btn-print">
+    </form>
+</section>
+
+<hr>
+
+<section>
+    <h2>Ajouter un article</h2>
+    <form id="addArticle" th:action="@{/store/client/addArticle}" method="post">
+        <input type="hidden" name="commandeId" th:value="${commande.id}">
+
+        <div class="form-group">
+            <label for="articleNom">Nom de l'article :</label>
+            <input id="articleNom" name="articleNom" type="text" required placeholder="Nom de l'article">
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantité :</label>
+            <input id="quantity" name="quantity" type="number" min="1" required placeholder="Quantité">
+        </div>
+
+        <div class="form-group">
+            <label for="price">Prix :</label>
+            <input id="price" name="price" type="number" step="0.01" min="0" required placeholder="Prix">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Ajouter" class="btn-add">
+        </div>
+    </form>
+</section>
+
+</body>
+</html>

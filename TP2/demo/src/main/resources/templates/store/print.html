@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styleCommandePage.css">
+    <title>Impression de la Commande</title>
+    <style>
+        /* Style de base pour la page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .btn-back {
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Commande : <span th:text="${commande.nom}"></span></h1>
+
+<a th:href="@{'/store/client/commande/' + ${commande.id}}" class="btn-back">Retour</a>
+<br><hr>
+
+<section>
+    <h2>Liste des articles</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Prix Unitaire</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ligneCommande : ${articles}">
+            <td th:text="${ligneCommande.article.nomArticle}"></td>
+            <td th:text="${ligneCommande.nbArticle}"></td>
+            <td th:text="${ligneCommande.article.prixUnitaire} + ' €'"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Total de la commande</h2>
+    <p th:text="${totalCommande} + ' €'"></p>
+</section>
+
+</body>
+</html>
